@@ -1,4 +1,10 @@
 body {
-    margin-top: 150px;
-    text-align: center;
+  margin-top: 150px;
+  text-align: center;
+}
+
+#canvas {
+  box-shadow: 5px 5px 20px grey;
+  border: 1px black solid;
+  background: white;
 }
