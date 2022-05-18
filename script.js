@@ -1,28 +1,14 @@
-/*
-Tile Map **
-
-Input Player
-
-Keyboard Input
-
-Collision Detection
-
-Input Enemies
-
-Enemy Collision
-
-Enemy AI
-
-Keep Score
-*/
-
 const canvas = document.querySelector("#canvas");
 const ctx = canvas.getContext("2d");
+const scoreOnPage = document.querySelector("#score");
+const start = document.querySelector("#start");
+const reset = document.querySelector("#reset");
 let rightPressed = false;
 let leftPressed = false;
 let upPressed = false;
 let downPressed = false;
 let playerDir = "";
+let score = 0;
 
 class Wall {
   constructor({ position }) {
@@ -59,7 +45,7 @@ class Player {
   constructor({ position, speed }) {
     this.position = position;
     this.speed = speed;
-    this.size = 15;
+    this.size = 18;
   }
   drawPlayer() {
     ctx.beginPath();
@@ -70,6 +56,35 @@ class Player {
   }
   move() {
     this.drawPlayer();
+    this.position.x += this.speed.x;
+    this.position.y += this.speed.y;
+  }
+}
+
+class Ghost {
+  constructor({ position, speed }) {
+    this.position = position;
+    this.speed = speed;
+  }
+  drawGhost(e) {
+    ctx.beginPath();
+    ctx.arc(this.position.x, this.position.y, 7, 0, Math.PI * 2);
+    ctx.fillStyle = e;
+    ctx.fill();
+    ctx.closePath();
+    ctx.beginPath();
+    ctx.arc(this.position.x, this.position.y, 11, 0, Math.PI * 2);
+    ctx.strokeStyle = e;
+    ctx.stroke();
+    ctx.closePath();
+    ctx.beginPath();
+    ctx.arc(this.position.x, this.position.y, 15, 0, Math.PI * 2);
+    ctx.strokeStyle = e;
+    ctx.stroke();
+    ctx.closePath();
+  }
+  move() {
+    // this.drawGhost();
     this.position.x += this.speed.x;
     this.position.y += this.speed.y;
   }
@@ -100,6 +115,39 @@ const player = new Player({
   position: {
     x: 75,
     y: 75,
+  },
+  speed: {
+    x: 0,
+    y: 0,
+  },
+});
+
+const firstGhost = new Ghost({
+  position: {
+    x: 75,
+    y: 475,
+  },
+  speed: {
+    x: 0,
+    y: 0,
+  },
+});
+
+const secondGhost = new Ghost({
+  position: {
+    x: 525,
+    y: 75,
+  },
+  speed: {
+    x: 0,
+    y: 0,
+  },
+});
+
+const thirdGhost = new Ghost({
+  position: {
+    x: 525,
+    y: 475,
   },
   speed: {
     x: 0,
@@ -139,53 +187,178 @@ for (i = 0; i < map.length; i++) {
   }
 }
 
-// pellets.forEach((pellet) => {
-//   pellet.drawPellets("blue");
-// });
-
 player.drawPlayer();
+firstGhost.drawGhost("red");
+secondGhost.drawGhost("green");
+thirdGhost.drawGhost("pink");
 
 document.addEventListener("keydown", keyDown, false);
 document.addEventListener("keyup", keyUp, false);
+start.addEventListener("click", startGame);
+reset.addEventListener("click", resetGame);
+
+function ghostFollowsOne(e) {
+  if (
+    map[Math.floor(e.position.x / 50) + 1][Math.floor(e.position.y / 50)] !== 1
+  ) {
+    e.speed.x = 50;
+  } else if (
+    map[Math.floor(e.position.x / 50)][Math.floor(e.position.y / 50) - 1] !== 1
+  ) {
+    e.speed.y = -50;
+  } else if (
+    map[Math.floor(e.position.x / 50) - 1][Math.floor(e.position.y / 50)] !== 1
+  ) {
+    e.speed.x = -50;
+  } else if (
+    map[Math.floor(e.position.x / 50)][Math.floor(e.position.y / 50) + 1] !== 1
+  ) {
+    e.speed.y = 50;
+  }
+}
+function ghostFollowsTwo(e) {
+  if (
+    map[Math.floor(e.position.x / 50) - 1][Math.floor(e.position.y / 50)] !== 1
+  ) {
+    e.speed.x = -50;
+  } else if (
+    map[Math.floor(e.position.x / 50)][Math.floor(e.position.y / 50) + 1] !== 1
+  ) {
+    e.speed.y = 50;
+  } else if (
+    map[Math.floor(e.position.x / 50) + 1][Math.floor(e.position.y / 50)] !== 1
+  ) {
+    e.speed.x = 50;
+  } else if (
+    map[Math.floor(e.position.x / 50)][Math.floor(e.position.y / 50) - 1] !== 1
+  ) {
+    e.speed.y = -50;
+  }
+}
+function ghostFollowsThree(e) {
+  if (
+    map[Math.floor(e.position.x / 50)][Math.floor(e.position.y / 50) - 1] !== 1
+  ) {
+    e.speed.y = -50;
+  } else if (
+    map[Math.floor(e.position.x / 50) + 1][Math.floor(e.position.y / 50)] !== 1
+  ) {
+    e.speed.x = 50;
+  } else if (
+    map[Math.floor(e.position.x / 50)][Math.floor(e.position.y / 50) + 1] !== 1
+  ) {
+    e.speed.y = 50;
+  } else if (
+    map[Math.floor(e.position.x / 50) - 1][Math.floor(e.position.y / 50)] !== 1
+  ) {
+    e.speed.x = -50;
+  }
+}
+function ghostFollowsFour(e) {
+  if (
+    map[Math.floor(e.position.x / 50)][Math.floor(e.position.y / 50) + 1] !== 1
+  ) {
+    e.speed.y = 50;
+  } else if (
+    map[Math.floor(e.position.x / 50) - 1][Math.floor(e.position.y / 50)] !== 1
+  ) {
+    e.speed.x = -50;
+  } else if (
+    map[Math.floor(e.position.x / 50)][Math.floor(e.position.y / 50) - 1] !== 1
+  ) {
+    e.speed.y = -50;
+  } else if (
+    map[Math.floor(e.position.x / 50) + 1][Math.floor(e.position.y / 50)] !== 1
+  ) {
+    e.speed.x = 50;
+  }
+}
 
 function keyDown(e) {
   if (e.key == "Right" || e.key == "ArrowRight") {
     rightPressed = true;
     player.speed.x = 50;
+    ghostFollowsOne(firstGhost);
+    ghostFollowsFour(secondGhost);
+    ghostFollowsThree(thirdGhost);
   } else if (e.key == "Left" || e.key == "ArrowLeft") {
     leftPressed = true;
     player.speed.x = -50;
+    ghostFollowsTwo(firstGhost);
+    ghostFollowsThree(secondGhost);
+    ghostFollowsFour(thirdGhost);
   } else if (e.key == "Up" || e.key == "ArrowUp") {
     upPressed = true;
     player.speed.y = -50;
+    ghostFollowsThree(firstGhost);
+    ghostFollowsOne(secondGhost);
+    ghostFollowsTwo(thirdGhost);
   } else if (e.key == "Down" || e.key == "ArrowDown") {
     downPressed = true;
     player.speed.y = 50;
+    ghostFollowsFour(firstGhost);
+    ghostFollowsTwo(secondGhost);
+    ghostFollowsOne(thirdGhost);
   }
+}
+
+function loseSpeed() {
+  player.speed.x = 0;
+  player.speed.y = 0;
+  firstGhost.speed.x = 0;
+  firstGhost.speed.y = 0;
+  secondGhost.speed.x = 0;
+  secondGhost.speed.y = 0;
+  thirdGhost.speed.x = 0;
+  thirdGhost.speed.y = 0;
 }
 
 function keyUp(e) {
   if (e.key == "Right" || e.key == "ArrowRight") {
     rightPressed = false;
-    player.speed.x = 0;
+    loseSpeed();
+    // player.position.x = player.position.x - 10; // These lines fix the wall jumping, but make it very difficult to pick up the pellets
     // player.move();
   } else if (e.key == "Left" || e.key == "ArrowLeft") {
     leftPressed = false;
-    player.speed.x = 0;
+    loseSpeed();
+    // player.position.x = player.position.x + 10;
     // player.move();
   } else if (e.key == "Up" || e.key == "ArrowUp") {
     upPressed = false;
-    player.speed.y = 0;
+    loseSpeed();
+    // player.position.y = player.position.y + 10;
     // player.move();
   } else if (e.key == "Down" || e.key == "ArrowDown") {
     downPressed = false;
-    player.speed.y = 0;
+    loseSpeed();
+    // player.position.y = player.position.y - 10;
     // player.move();
   }
 }
 
+function scoreKeeper() {
+  score = 0;
+  pellets.filter((pellet) => {
+    if (pellet.value === 1) {
+      score++;
+    }
+  });
+  return score;
+}
+
+function startGame() {
+  animate();
+}
+
+function resetGame() {
+  window.location.reload();
+}
+
 function animate() {
-  requestAnimationFrame(animate);
+  const startAnim = requestAnimationFrame(animate);
+  startAnim;
+  // let quitAnimation = requestAnimationFrame(animate);
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   walls.forEach((wall) => {
     wall.drawMap();
@@ -215,9 +388,32 @@ function animate() {
         player.speed.y = -50;
       }
     }
+    if (
+      (player.position.x === firstGhost.position.x &&
+        player.position.y === firstGhost.position.y) ||
+      (player.position.x === secondGhost.position.x &&
+        player.position.y === secondGhost.position.y) ||
+      (player.position.x === thirdGhost.position.x &&
+        player.position.y === thirdGhost.position.y)
+    ) {
+      window.cancelAnimationFrame(startAnim);
+      alert("You lose");
+      player.position.x = -50;
+      player.position.y = -50;
+    } else if (score === 59) {
+      window.cancelAnimationFrame(startAnim);
+      alert("You win");
+      score = 0;
+    }
   });
+  scoreKeeper();
+  scoreOnPage.innerText = `Score: ${score}`;
   player.move();
-  player.speed.x = 0;
-  player.speed.y = 0;
+  firstGhost.move();
+  secondGhost.move();
+  thirdGhost.move();
+  firstGhost.drawGhost("red");
+  secondGhost.drawGhost("green");
+  thirdGhost.drawGhost("pink");
+  loseSpeed();
 }
-animate();
