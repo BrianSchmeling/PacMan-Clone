@@ -356,13 +356,13 @@ function loseSpeed() {
   secondGhost.speed.y = 0;
   thirdGhost.speed.x = 0;
   thirdGhost.speed.y = 0;
-}
+} // This fixes an issue where the player and ghosts move at incredible speeds. Once collision detection is fully fixed this can be removed.
 
 function keyUp(e) {
   if (e.key == "Right" || e.key == "ArrowRight") {
     rightPressed = false;
     loseSpeed();
-    // player.position.x = player.position.x - 10; // These lines fix the wall jumping, but make it very difficult to pick up the pellets
+    // player.position.x = player.position.x - 10; // These lines fix the wall jumping bug, but make it very difficult to pick up the pellets. Once that issue is resolved these lines can be reactivated.
     // player.move();
   } else if (e.key == "Left" || e.key == "ArrowLeft") {
     leftPressed = false;
