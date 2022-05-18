@@ -41,6 +41,21 @@ class Pellet {
   }
 }
 
+class PowerPellets {
+  constructor({ position }, value) {
+    this.position = position;
+    this.size = 8;
+    this.value = 2;
+  }
+  drawPowerPellets() {
+    ctx.beginPath();
+    ctx.arc(this.position.x, this.position.y, this.size, 0, Math.PI * 2);
+    ctx.fillStyle = "aquamarine";
+    ctx.fill();
+    ctx.closePath();
+  }
+}
+
 class Player {
   constructor({ position, speed }) {
     this.position = position;
@@ -122,6 +137,13 @@ const player = new Player({
   },
 });
 
+const powerPellet = new PowerPellets({
+  position: {
+    x: 325,
+    y: 275,
+  },
+});
+
 const firstGhost = new Ghost({
   position: {
     x: 75,
@@ -198,82 +220,105 @@ start.addEventListener("click", startGame);
 reset.addEventListener("click", resetGame);
 
 function ghostFollowsOne(e) {
-  if (
-    map[Math.floor(e.position.x / 50) + 1][Math.floor(e.position.y / 50)] !== 1
-  ) {
-    e.speed.x = 50;
-  } else if (
-    map[Math.floor(e.position.x / 50)][Math.floor(e.position.y / 50) - 1] !== 1
-  ) {
-    e.speed.y = -50;
-  } else if (
-    map[Math.floor(e.position.x / 50) - 1][Math.floor(e.position.y / 50)] !== 1
-  ) {
-    e.speed.x = -50;
-  } else if (
-    map[Math.floor(e.position.x / 50)][Math.floor(e.position.y / 50) + 1] !== 1
-  ) {
-    e.speed.y = 50;
+  if (e.position.x < 550) {
+    if (
+      map[Math.floor(e.position.x / 50) + 1][Math.floor(e.position.y / 50)] !==
+      1
+    ) {
+      e.speed.x = 50;
+    } else if (
+      map[Math.floor(e.position.x / 50)][Math.floor(e.position.y / 50) - 1] !==
+      1
+    ) {
+      e.speed.y = -50;
+    } else if (
+      map[Math.floor(e.position.x / 50) - 1][Math.floor(e.position.y / 50)] !==
+      1
+    ) {
+      e.speed.x = -50;
+    } else if (
+      map[Math.floor(e.position.x / 50)][Math.floor(e.position.y / 50) + 1] !==
+      1
+    ) {
+      e.speed.y = 50;
+    }
   }
 }
 function ghostFollowsTwo(e) {
-  if (
-    map[Math.floor(e.position.x / 50) - 1][Math.floor(e.position.y / 50)] !== 1
-  ) {
-    e.speed.x = -50;
-  } else if (
-    map[Math.floor(e.position.x / 50)][Math.floor(e.position.y / 50) + 1] !== 1
-  ) {
-    e.speed.y = 50;
-  } else if (
-    map[Math.floor(e.position.x / 50) + 1][Math.floor(e.position.y / 50)] !== 1
-  ) {
-    e.speed.x = 50;
-  } else if (
-    map[Math.floor(e.position.x / 50)][Math.floor(e.position.y / 50) - 1] !== 1
-  ) {
-    e.speed.y = -50;
+  if (e.position.x < 550) {
+    if (
+      map[Math.floor(e.position.x / 50) - 1][Math.floor(e.position.y / 50)] !==
+      1
+    ) {
+      e.speed.x = -50;
+    } else if (
+      map[Math.floor(e.position.x / 50)][Math.floor(e.position.y / 50) + 1] !==
+      1
+    ) {
+      e.speed.y = 50;
+    } else if (
+      map[Math.floor(e.position.x / 50) + 1][Math.floor(e.position.y / 50)] !==
+      1
+    ) {
+      e.speed.x = 50;
+    } else if (
+      map[Math.floor(e.position.x / 50)][Math.floor(e.position.y / 50) - 1] !==
+      1
+    ) {
+      e.speed.y = -50;
+    }
   }
 }
 function ghostFollowsThree(e) {
-  if (
-    map[Math.floor(e.position.x / 50)][Math.floor(e.position.y / 50) - 1] !== 1
-  ) {
-    e.speed.y = -50;
-  } else if (
-    map[Math.floor(e.position.x / 50) + 1][Math.floor(e.position.y / 50)] !== 1
-  ) {
-    e.speed.x = 50;
-  } else if (
-    map[Math.floor(e.position.x / 50)][Math.floor(e.position.y / 50) + 1] !== 1
-  ) {
-    e.speed.y = 50;
-  } else if (
-    map[Math.floor(e.position.x / 50) - 1][Math.floor(e.position.y / 50)] !== 1
-  ) {
-    e.speed.x = -50;
+  if (e.position.x < 550) {
+    if (
+      map[Math.floor(e.position.x / 50)][Math.floor(e.position.y / 50) - 1] !==
+      1
+    ) {
+      e.speed.y = -50;
+    } else if (
+      map[Math.floor(e.position.x / 50) + 1][Math.floor(e.position.y / 50)] !==
+      1
+    ) {
+      e.speed.x = 50;
+    } else if (
+      map[Math.floor(e.position.x / 50)][Math.floor(e.position.y / 50) + 1] !==
+      1
+    ) {
+      e.speed.y = 50;
+    } else if (
+      map[Math.floor(e.position.x / 50) - 1][Math.floor(e.position.y / 50)] !==
+      1
+    ) {
+      e.speed.x = -50;
+    }
   }
 }
 function ghostFollowsFour(e) {
-  if (
-    map[Math.floor(e.position.x / 50)][Math.floor(e.position.y / 50) + 1] !== 1
-  ) {
-    e.speed.y = 50;
-  } else if (
-    map[Math.floor(e.position.x / 50) - 1][Math.floor(e.position.y / 50)] !== 1
-  ) {
-    e.speed.x = -50;
-  } else if (
-    map[Math.floor(e.position.x / 50)][Math.floor(e.position.y / 50) - 1] !== 1
-  ) {
-    e.speed.y = -50;
-  } else if (
-    map[Math.floor(e.position.x / 50) + 1][Math.floor(e.position.y / 50)] !== 1
-  ) {
-    e.speed.x = 50;
+  if (e.position.x < 550) {
+    if (
+      map[Math.floor(e.position.x / 50)][Math.floor(e.position.y / 50) + 1] !==
+      1
+    ) {
+      e.speed.y = 50;
+    } else if (
+      map[Math.floor(e.position.x / 50) - 1][Math.floor(e.position.y / 50)] !==
+      1
+    ) {
+      e.speed.x = -50;
+    } else if (
+      map[Math.floor(e.position.x / 50)][Math.floor(e.position.y / 50) - 1] !==
+      1
+    ) {
+      e.speed.y = -50;
+    } else if (
+      map[Math.floor(e.position.x / 50) + 1][Math.floor(e.position.y / 50)] !==
+      1
+    ) {
+      e.speed.x = 50;
+    }
   }
 }
-
 function keyDown(e) {
   if (e.key == "Right" || e.key == "ArrowRight") {
     rightPressed = true;
@@ -354,6 +399,7 @@ function startGame() {
 function resetGame() {
   window.location.reload();
 }
+let timer;
 
 function animate() {
   const startAnim = requestAnimationFrame(animate);
@@ -372,6 +418,19 @@ function animate() {
         pellet.drawPellets();
       }
     });
+
+    if (
+      player.position.x === powerPellet.position.x &&
+      player.position.y === powerPellet.position.y
+    ) {
+      powerPellet.value = 1;
+      timer = 750;
+      powerPellet.position.x = 1000;
+      powerPellet.position.y = 1000;
+    } else if (powerPellet.value === 2) {
+      powerPellet.drawPowerPellets();
+    }
+
     if (
       player.position.x + player.size >= wall.position.x &&
       player.position.x - player.size <= wall.position.x + wall.width &&
@@ -395,12 +454,34 @@ function animate() {
         player.position.y === secondGhost.position.y) ||
       (player.position.x === thirdGhost.position.x &&
         player.position.y === thirdGhost.position.y)
-    ) {
-      window.cancelAnimationFrame(startAnim);
-      alert("You lose");
-      player.position.x = -50;
-      player.position.y = -50;
-    } else if (score === 59) {
+    )
+      if (timer > 0) {
+        if (
+          player.position.x === firstGhost.position.x &&
+          player.position.y === firstGhost.position.y
+        ) {
+          firstGhost.position.x = 5000;
+          firstGhost.position.y = 5000;
+        } else if (
+          player.position.x === secondGhost.position.x &&
+          player.position.y === secondGhost.position.y
+        ) {
+          secondGhost.position.x = 5000;
+          secondGhost.position.y = 5000;
+        } else if (
+          player.position.x === thirdGhost.position.x &&
+          player.position.y === thirdGhost.position.y
+        ) {
+          thirdGhost.position.x = 5000;
+          thirdGhost.position.y = 5000;
+        }
+      } else {
+        window.cancelAnimationFrame(startAnim);
+        alert("You lose");
+        player.position.x = -50;
+        player.position.y = -50;
+      }
+    else if (score === 59) {
       window.cancelAnimationFrame(startAnim);
       alert("You win");
       score = 0;
@@ -412,8 +493,15 @@ function animate() {
   firstGhost.move();
   secondGhost.move();
   thirdGhost.move();
-  firstGhost.drawGhost("red");
-  secondGhost.drawGhost("green");
-  thirdGhost.drawGhost("pink");
   loseSpeed();
+  if (timer > 0) {
+    timer--;
+    firstGhost.drawGhost("dodgerblue");
+    secondGhost.drawGhost("dodgerblue");
+    thirdGhost.drawGhost("dodgerblue");
+  } else {
+    firstGhost.drawGhost("red");
+    secondGhost.drawGhost("green");
+    thirdGhost.drawGhost("pink");
+  }
 }
