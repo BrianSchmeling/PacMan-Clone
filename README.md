@@ -29,6 +29,7 @@ Stretch Goals: <br />
 [ ] As a user, I want different difficulties, so that if the game is too easy/difficult, I can adjust it <br />
 
 Wireframes:
+![image](https://user-images.githubusercontent.com/99563824/169320361-df6b0c0f-fdf3-461c-9372-872629594883.png)
 
 Any Unsolved Problems? <br />
 There is a bug where you are able to jump through walls due to the way I implemented collision detection. <br />
