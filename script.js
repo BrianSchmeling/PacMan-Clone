@@ -389,6 +389,9 @@ function scoreKeeper() {
       score++;
     }
   });
+  if (powerPellet.value === 1) {
+    score = score + 6;
+  }
   return score;
 }
 
@@ -481,7 +484,7 @@ function animate() {
         player.position.x = -50;
         player.position.y = -50;
       }
-    else if (score === 59) {
+    else if (score === 65) {
       window.cancelAnimationFrame(startAnim);
       alert("You win");
       score = 0;
