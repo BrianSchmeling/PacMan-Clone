@@ -212,7 +212,7 @@ for (i = 0; i < map.length; i++) {
 player.drawPlayer();
 firstGhost.drawGhost("red");
 secondGhost.drawGhost("green");
-thirdGhost.drawGhost("pink");
+thirdGhost.drawGhost("hotpink");
 
 document.addEventListener("keydown", keyDown, false);
 document.addEventListener("keyup", keyUp, false);
@@ -502,6 +502,6 @@ function animate() {
   } else {
     firstGhost.drawGhost("red");
     secondGhost.drawGhost("green");
-    thirdGhost.drawGhost("pink");
+    thirdGhost.drawGhost("hotpink");
   }
 }

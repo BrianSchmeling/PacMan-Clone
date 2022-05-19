@@ -14,3 +14,5 @@ User Stories:
 Wireframes
 
 Any Unsolver Problems?
+
+Resources used:
