@@ -28,7 +28,7 @@ Stretch Goals: <br />
 [ ] As a user, I want multiple mazes, so that I don't get bored of just one <br />
 [ ] As a user, I want different difficulties, so that if the game is too easy/difficult, I can adjust it <br />
 
-Wireframes:
+Wireframes: <br />
 ![image](https://user-images.githubusercontent.com/99563824/169320361-df6b0c0f-fdf3-461c-9372-872629594883.png)
 
 Any Unsolved Problems? <br />
