@@ -3,10 +3,10 @@
 ![image](https://user-images.githubusercontent.com/99563824/169315999-fbd5fb0b-c9d9-497f-9f23-1980e82e1f7a.png)
 
 
-Technologies Used:
-HTML
-CSS
-JavaScript
+Technologies Used: <br />
+HTML <br />
+CSS <br />
+JavaScript <br />
 
 Installation Instructions:
 Open the app in your browser
