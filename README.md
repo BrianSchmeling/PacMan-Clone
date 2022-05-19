@@ -1,7 +1,5 @@
 # PacMan-Clone
 
-Link to live site: <br />
-https://628655702f43b1107e40e2b9--effulgent-heliotrope-ace13d.netlify.app/ <br />
 
 ![image](https://user-images.githubusercontent.com/99563824/169315999-fbd5fb0b-c9d9-497f-9f23-1980e82e1f7a.png)
 
