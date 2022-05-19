@@ -326,24 +326,28 @@ function keyDown(e) {
     ghostFollowsOne(firstGhost);
     ghostFollowsFour(secondGhost);
     ghostFollowsThree(thirdGhost);
+    e.preventDefault();
   } else if (e.key == "Left" || e.key == "ArrowLeft") {
     leftPressed = true;
     player.speed.x = -50;
     ghostFollowsTwo(firstGhost);
     ghostFollowsThree(secondGhost);
     ghostFollowsFour(thirdGhost);
+    e.preventDefault();
   } else if (e.key == "Up" || e.key == "ArrowUp") {
     upPressed = true;
     player.speed.y = -50;
     ghostFollowsThree(firstGhost);
     ghostFollowsOne(secondGhost);
     ghostFollowsTwo(thirdGhost);
+    e.preventDefault();
   } else if (e.key == "Down" || e.key == "ArrowDown") {
     downPressed = true;
     player.speed.y = 50;
     ghostFollowsFour(firstGhost);
     ghostFollowsTwo(secondGhost);
     ghostFollowsOne(thirdGhost);
+    e.preventDefault();
   }
 }
 
