@@ -1,5 +1,5 @@
 body {
-  margin-top: 75px;
+  margin-top: 50px;
   text-align: center;
   background: lightblue;
 }
@@ -19,10 +19,10 @@ body {
   width: 275px;
   height: 40px;
   margin: 20px;
-  margin-bottom: 50px;
   border-radius: 25px;
 }
 
 #score {
+  margin-top: 15px;
   font-size: 50px;
 }
